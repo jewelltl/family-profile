@@ -1,0 +1,62 @@
+extends layout
+
+
+block styles
+	link(rel="stylesheet" href="/plugins/fancybox-2.1.7/source/jquery.fancybox.css?v=2.1.7" type="text/css" media="screen")
+	link(rel="stylesheet" href="/plugins/fancybox-2.1.7/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen")
+	link(rel="stylesheet" href="/plugins/fancybox-2.1.7/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen")
+block page-top
+block body
+	.page-content.landing-content
+		.row
+			.col-md-12
+				.instruct.text-white
+					p Welcome to the Family-Profile site for our upcoming reunion Feb 23-25, 2018 at IITK. We would like every one, even if you are not attending this reunion, to make one to introduce your family to all who will be there. We will also include it in a time capsule, in the form of a coffee-table book. 
+		.row
+			.col-md-12
+				.instruct.text-white
+					p Please click Next to access your profile template which should take about an hour to fill.  You can review a few sample profiles to get inspiration.
+			.col-md-12
+				ul.text-center.list-inline
+					each val in [0, 1, 2, 3]
+						li.list-unstyled
+							a.fancybox-button(rel="fancybox-button" href="https://family-profile.herokuapp.com/images/sample"+val + ".png" title="Sample Profile")
+								img.img-responsive( src="https://family-profile.herokuapp.com/images/sample"+val + "-thumb.png" alt="")
+			.col-md-12
+				.instruct.text-white
+					p Just collect your thoughts on what you want to say and a few photographs to upload. Put you responses in 7 boxes, proof-read, save and publish before the deadline, you don’t need to mail anything
+		.row
+			.col-md-12
+				.req
+					h2(style="font-family:sans-serif") Guidelines:
+					ol
+						li Name (any aliases while at IITK), your current city of Residence, Branch, IITK halls you stayed at.
+						li Mugshots, one from way back (preferably from IITK days*), another one recent (pref. from 2018)
+						li Your Favorite Memories of IITK and how have you have changed since your IITK days
+						li Your designated profession: Tell us a little about your professional journey and accomplishments
+						li Your Family life and Favorite activities, boast as long as you keep it short, mention the unusual
+						li Collection of photos, include up to 3 pictures with family, friends, and/or activities you enjoy
+						li Final thoughts, musings, reflections… put down your own wise thoughts or of those you admire
+			
+
+block footer
+	a(href="/login").btn.pull-right.btn-primary Next &nbsp;
+		i.fa.fa-arrow-right
+	.page-footer-inner
+
+block scripts
+	script(type="text/javascript" src="/plugins/fancybox-2.1.7/source/jquery.fancybox.pack.js?v=2.1.7")
+	script(type="text/javascript" src="/plugins/fancybox-2.1.7/lib/jquery.mousewheel.pack.js")
+	script(type="text/javascript" src="/plugins/fancybox-2.1.7/source/helpers/jquery.fancybox-buttons.js?v=1.0.5")
+	script(type="text/javascript" src="/plugins/fancybox-2.1.7/source/helpers/jquery.fancybox-media.js?v=1.0.6")
+	script(type="text/javascript" src="/plugins/fancybox-2.1.7/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7")
+	script.
+		$(".fancybox-button").fancybox({
+			prevEffect		: 'none',
+			nextEffect		: 'none',
+			closeBtn		: false,
+			helpers		: {
+				title	: { type : 'inside' },
+				buttons	: {}
+			}
+		});

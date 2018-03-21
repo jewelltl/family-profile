@@ -1,0 +1,48 @@
+{
+    "application" : "Family Profile Server",
+    "port": 8000,
+    "env": "development",
+    "instance": "Server_PC",
+    "parallelProcessing": 5,
+    "domain": "http://localhost:8000",
+    "websocketsRestartCronTime": "0 */5 * * * *",
+    "site": {
+        "title" : "78-83 Batch",
+        "officialname" : "78-83 Batch",
+        "officialurl": "https://family-profile.herokuapp.com/"
+    },
+    "db": {
+        "connection": "mongodb://leetailoong:123@ds125068.mlab.com:25068/family_profile_dev",
+        "connection_local": "mongodb://localhost:27017/family_profile_dev",
+        "options": {
+        }
+    },
+    "utilityProvidersGeneralWords": [
+        "company",
+        "inc",
+        "and",
+        "."
+    ],
+    "cookie": {
+        "secure": false
+    },
+    "session": {
+        "key": "mySuperPuperKey",
+        "cookieDomain": ".example.com"
+    },
+	"assets": {
+        "imageAssetsKeyPrefix": "Images",
+        "userAssetsKeyPrefix": "UserAssets"
+    },
+    "api": {
+        "version": "v1",
+        "secure": true
+    },
+    "email": {
+        "host": "smtp.sumpura.com",
+        "port": 587,
+        "username": "P_K_Agarwal@yahoo.com",
+        "user": "78-83reunion@sumpura.com",
+        "pass": "IITkanpur#1"
+    }
+}

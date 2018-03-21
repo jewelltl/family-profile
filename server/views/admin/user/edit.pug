@@ -1,0 +1,59 @@
+extends ../layout
+
+block styles
+
+block page_header
+	h3.page-title Advanced Datatable 
+		small advanced datatables
+	.page-bar
+		.page-bar
+			ul.page-breadcrumb
+				li
+					i.fa.fa-home
+					a(href="/admin") Home
+					i.fa.fa-angle-right
+				li
+					i.fa.fa-user
+					|Edit
+block page_content
+	.row
+		.col-md-12
+			.portlet.box.blue-hoki
+				.portlet-title
+					.caption
+						i.fa.fa-globe
+						|Edit Customer
+				.portlet-body.form
+					form.form-horizontal#user_update_form(role="form" action="/v1/api/admin/user/update" method="post")
+						.form-body
+							.alert.alert-danger.display-hide.validate-error
+								button.close(data-close="alert")
+								|The username is already registered.
+							.alert.alert-danger.display-hide.form-error
+								button.close(data-close="alert")
+								|You have some form errors. Please check bellow
+							.alert.alert-success.display-hide
+								button.close(data-close="alert")
+								|Your form validation is successful!
+								input(type="hidden" name="_id" value=user._id)
+							.form-group
+								label.control-label.col-md-3 Family Name
+									span.required *
+								.col-md-4
+									input#username.form-control(type="text" name="username" placeholder="Enter Customer's Name" value=user.username)
+							.form-group
+								label.control-label.col-md-3 Email
+									span.required *
+								.col-md-4
+									input#email.form-control(type="email" name="email" placeholder="Enter Customer's Email Address" value=user.email)
+							.form-actions
+								.col-md-12.text-center
+									button.btn.green Save
+									a.btn.grey(href="/admin") Back
+
+block scripts
+	script(type="text/javascript",src="/plugins/jquery-validation/js/jquery.validate.min.js")
+	script(type="text/javascript",src="/plugins/jquery-validation/js/additional-methods.min.js")
+	script(type="text/javascript",src="/scripts/admin/users.js")
+	script.
+		FormValidation.init()

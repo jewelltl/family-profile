@@ -1,0 +1,52 @@
+extends layout
+
+
+block styles
+	
+block page-top
+	.page-actions.pull-right
+		a(href="/").btn.pull-left.btn-primary(style="margin-right:15px")
+			i.fa.fa-arrow-left
+			|&nbsp; Back &nbsp;
+block body
+	.modal.fade#login-modal(tabindex="-1" role="dialog" aria-hidden="true")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close.text-white(type="button" class="close" data-dismiss="modal" aria-hidden="true")
+					h4.modal-title
+						img(src="/images/logo-small.gif")
+				.modal-body
+					.alert.alert-danger.display-hide
+						button.close(data-close="alert")
+						|Your Credentials does not match with our records.
+					.form-group
+						h4#username
+						input(type="hidden" name="id")#id
+						input(type="text" placeholder="Enter your Email ID" name="password" autofocus="true").form-control#password
+				.modal-footer
+					button.btn.default(type="button" data-dismiss="modal") Close &nbsp;
+						i.fa.fa-close
+					button.btn.blue.login-submit(type="button") Submit &nbsp;
+						i.fa.fa-send
+
+	.page-content.landing-content
+		h2(style="margin-top:0") Click on your name and enter your password (which is your email-id) to begin:
+		.row
+			.col-md-12
+				ul.list-inline
+					each user,key in users
+						li.col-md-3.text-center
+							if user.active == 0
+								a.btn.btn-default.login_btn(data-toggle="modal" data-target="#login-modal" data-id=user._id data-username=user.username) #{user.username}
+							else
+								a.btn.btn-default.login_btn.approved(data-toggle="modal" data-target="#login-modal" data-id=user._id data-username=user.username) #{user.username}
+block footer
+	a.btn.btn-primary.padding-right-15.pull-right(href="/admin/login") Admin Login&nbsp;
+		i.fa.fa-user
+
+
+
+block scripts
+	
+	script(src="/scripts/login.js",type="text/javascript")

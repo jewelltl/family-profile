@@ -1,0 +1,87 @@
+extends ../layout
+
+block styles
+	link(href="/plugins/select2/select2.css",rel="stylesheet",type="text/css")
+	link(href="/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css",rel="stylesheet",type="text/css")
+
+
+
+
+
+block page_header
+	h3.page-title 78-83 Batch List
+		small 78-83 Batch List
+	.page-bar
+		.page-bar
+			ul.page-breadcrumb
+				li
+					i.fa.fa-home
+					a(href="/admin") Home
+					i.fa.fa-angle-right
+				li
+					i.fa.fa-home
+					|Users
+block page_content
+	.row
+		.col-md-12
+			.portlet.box.blue-hoki
+				.portlet-title
+					.caption
+						i.fa.fa-globe
+						|78-83 Batch List
+					a.btn.green(href="/admin/user/create").pull-right Add Customer&nbsp;
+							i.fa.fa-plus
+				.portlet-body
+					.row
+						.col-md-2.col-sm-3.col-xs-4
+							form(action="/admin/user/invite")#invite_form
+								input(type="hidden" name="users")#users.users
+								button.btn.blue.float-right.invite_btn(type="button") Send Invite&nbsp;
+									i.fa.fa-envelope
+						.col-md-2.col-sm-3.col-xs-4
+								button.btn.red.float-right#publish(type="button")
+									span Publish&nbsp;
+										i.fa.fa-file-powerpoint-o
+									span.display-hide Preparing PPT
+										i.fa.fa-spinner
+					table.table.table-striped.table-bordered.table-hover#user_list
+						thead
+							tr.text-center
+								th.table-checkbox
+									input.group-checkable(type="checkbox" data-set="#user_list .checkboxes")
+								th No
+								th Name
+								th Email
+								th Status
+								th
+						tbody
+							if results != null
+								each user,key in results.users
+									tr.odd.gradX
+										td
+											input.checkboxes(type="checkbox" value=user._id )
+										td(style="width:60px;") #{key + 1}
+										td #{user.username}
+										td #{user.email}
+										td
+											if user.active == 0
+												label.label.label-warning Pending
+											else
+												label.label.label-success Approved
+										td
+											a.btn.blue.btn-sm(href="/admin/user/edit?id="+user._id) Edit&nbsp;
+												i.fa.fa-edit
+											button.btn.yellow.btn-sm.del_btn(type="button" data-id=user._id) Delete&nbsp;
+												i.fa.fa-trash
+
+block scripts
+	script(type="text/javascript",src="/plugins/select2/select2.min.js")
+	script(type="text/javascript",src="/plugins/bootbox/bootbox.min.js")
+	script(type="text/javascript",src="/plugins/datatables/media/js/jquery.dataTables.min.js")
+	script(type="text/javascript",src="/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js")
+	script(type="text/javascript",src="/scripts/admin/table-manage.js")
+	script(type="text/javascript",src="/scripts/admin/users.js")
+	script.
+		$(document).ready(function(){
+			TableManaged.init();
+		})

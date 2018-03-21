@@ -1,0 +1,15 @@
+.page-sidebar.navbar-collapse.collapse
+	ul.page-sidebar-menu.page-sidebar-menu-hover-submenu(data-keep-expanded="false" 
+	data-auto-scroll="true" data-slide-speed="200")
+		if page == 'user'
+			li.start.active
+				a(href="/admin")
+					i.icon-user
+					span.title Users
+					span.selected
+		else
+			li.start
+				a(href="/admin")
+					i.icon-user
+					span.title Users
+		

@@ -1,0 +1,135 @@
+extends layout
+
+block styles
+	link(href="/plugins/bootstrap-fileinput/bootstrap-fileinput.css",rel="stylesheet",type="text/css")
+	link(href="/plugins/bootstrap-form-control/bootstrap-form-control.css",rel="stylesheet",type="text/css")
+	link(href="/plugins/dropzone/css/dropzone.css",rel="stylesheet",type="text/css")
+	//- link(href="/plugins/typeahead/typeahead.css",rel="stylesheet",type="text/css")
+		
+block page-top
+	.page-actions
+		span.font-desc.text-white Complete your profile
+	.page-actions.pull-right
+		a.btn.btn-primary.padding-right-15(href="/logout") Logout&nbsp;
+			i.fa.fa-sign-out
+block body
+	
+		.page-content
+			.portlet.box.blue
+				.portlet-title
+					.caption
+						i.fa.fa-users
+						| #{user.username}
+				.portlet-body.form
+					div.horizontal-form#virtuarl-form
+						input(type='hidden' name="_id" value=profile._id)#id
+						.form-body
+							.row
+								.col-md-4.col-sm-6
+									.form-group
+										textarea.form-control.family-name#name.max-length(name="name",rows="2",placeholder="Name:" maxlength="60") #{profile.name}
+									.form-group
+										.row
+											center.col-xs-6
+												form(action="/v1/api/add_photo" method="post" enctype="multipart/form-data" name="old-avatar-form")
+													.fileinput.fileinput-new(data-provides="fileinput")
+														.fileinput-preview.thumbnail(data-trigger="fileinput",style="width:180px;height:200px;")
+															if profile.oldavatar != ''
+																img(src="/uploads/profile/"+profile._id+"/"+profile.oldavatar alt="" style="width:100%; height: 100%")
+															else
+																img(src="" alt="" style="width:100%; height: 100%")
+														div
+															input(type="hidden" id="oldavatar_id" name="oldavatar_id" value=profile.oldavatar)
+															span.btn.default.btn-file
+																span.fileinput-new Select image
+																span.fileinput-exists Change
+																input#oldavatar(type="file",name="oldavatar")
+															a.btn.red.fileinput-exists(href="javascript:;",data-dismiss="fileinput") Remove
+													.clearfix.margin-top-10
+														p.text-center
+															span.label.label-danger 1978
+											center.col-xs-6
+												form(action="/v1/api/add_photo" method="post" enctype="multipart/form-data" name="current-avatar-form")
+													.fileinput.fileinput-new(data-provides="fileinput")
+														.fileinput-preview.thumbnail(data-trigger="fileinput",style="width:180px;height:200px;")
+															if profile.currentavatar != ''
+																img(src="/uploads/profile/"+profile.id+"/"+profile.currentavatar alt="" style="width:100%; height: 100%")
+															else
+																img(src="" alt="" style="width:100%; height: 100%")
+														div
+															input(type="hidden" id="currentavatar_id" name="currentavatar_id" value=profile.currentavatar)
+															span.btn.default.btn-file
+																span.fileinput-new Select image
+																span.fileinput-exists Change
+																input#currentavatar(type="file",name="currentavatar")
+															a.btn.red.fileinput-exists(href="javascript:;",data-dismiss="fileinput") Remove
+													.clearfix.margin-top-10
+														p.text-center
+															span.label.label-success 2018
+									.form-group
+										textarea#memory.form-control.max-length(name="memory",rows="5",placeholder="Favorite IITK Memories:" maxlength="400") #{profile.memory}
+									.form-group
+										textarea#changes.form-control.max-length(name="changes",rows="5",placeholder="Changes since IITK:" maxlength="300") #{profile.changes}
+								.col-md-4.col-sm-6
+									.form-group
+										textarea#profession.form-control.max-length(name="profession",rows="6",placeholder="Professional Bio:" maxlength="300" data-role="none") #{profile.profession}
+								.col-md-4.col-sm-6
+									.form-group
+										textarea#favorite.form-control.max-length(name="favorite",rows="11",placeholder="Some of My Favorites:" maxlength="500") #{profile.favorite}
+								.col-md-8
+									.portlet.light
+										.portlet-body
+											.form-group
+												.col-md-12
+													if (photos.length > 0)
+														input#photos(type="hidden" name="photos", value=profile.photos)
+														form(action="/v1/api/add_photo" method="post" enctype="multipart/form-data" name="newphoto-form" class="dropzone" id="my-dropzone")
+															for val, key in photos
+
+																div.dz-preview.dz-processing.dz-image-preview.dz-success
+																	div.dz-details
+																		div.dz-size(data-dz-size="")
+																			//- strong #{val} MB
+																		img(data-dz-thumbnail="" src="/uploads/profile/"+profile._id+"/" + val)
+																	div.dz-success-mark
+																		span ✔
+																	button.btn.btn-sm.btn-block.btn-danger.editRemovePhoto(data-photoname=val data-profile_id=profile._id) Remove File
+															div.dz-default.dz-message(style="display: none;")
+														div(class="alert hide alert-danger" id="editAlert")
+															button(class="close" data-dismiss="alert")
+															p Please choose picture.
+													else
+														input#photos(type="hidden" name="photos")
+														form(action="/v1/api/add_photo" method="post" enctype="multipart/form-data" name="photo-form" class="dropzone" id="my-dropzone")
+															div(class="alert hide alert-danger" id="addAlert")
+																button(class="close" data-dismiss="alert")
+																p Please select images.
+							.row
+								.col-md-12
+									.form-group
+										textarea#reflection.form-control.max-length(name="reflection",rows="3",placeholder="Musings/Reflections:" maxlength="300") #{profile.reflection}
+	
+block footer
+	a.btn.pull-right.red(saved=0)#publish Publish &nbsp;
+		i.fa.fa-file-powerpoint-o
+	button.btn.pull-right.btn-primary#save(type="button" style="margin-right:15px;") Save &nbsp;
+		i.fa.fa-save
+	
+	.page-footer-inner
+block scripts
+	script.
+		var uploadCount = 0
+	script(type="text/javascript",src="/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
+	script(type="text/javascript",src="/plugins/dropzone/dropzone.js")
+	script(type="text/javascript",src="/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js")
+	script.
+		var handleBootstrapMaxlength = function() {
+			$('.max-length').maxlength({
+				limitReachedClass: "label label-danger",
+				threshold: 20,
+				warningClass: "label label-success",
+				limitReachedClass: "label label-danger",
+				alwaysShow: true
+			});
+		}
+		handleBootstrapMaxlength()

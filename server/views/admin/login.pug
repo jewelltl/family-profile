@@ -1,0 +1,71 @@
+doctype
+
+html(lang="en")
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible",content="IE=edge")
+		meta(name="viewport",content="width=device-width,initial-scale=1")
+		meta(content="" name="description")
+		meta(content="" name="author")
+		title(Admin login)
+
+		//- Global Styleseets
+		link(href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900",rel="stylesheet",type="text/css")
+		link(href="/plugins/font-awesome/css/font-awesome.min.css",rel="stylesheet",type="text/css")
+		link(href="/plugins/simple-line-icons/simple-line-icons.min.css",rel="stylesheet",type="text/css")
+		link(href="/plugins/bootstrap/css/bootstrap.min.css",rel="stylesheet",type="text/css")
+		link(href="/plugins/uniform/css/uniform.default.css",rel="stylesheet",type="text/css")
+
+		link(href="/css/pages/login.css",rel="stylesheet",type="text/css")
+		
+		link(href="/css/components-rounded.css",rel="stylesheet",type="text/css")
+		link(href="/css/plugins.css",rel="stylesheet",type="text/css")
+		link(href="/css/layout.css",rel="stylesheet",type="text/css")
+		link(href="/css/themes/default.css",rel="stylesheet",type="text/css")
+		link(href="/css/custom.css",rel="stylesheet",type="text/css")
+
+
+	body.login
+		.logo
+			a(href="/admin")
+				img(src="/images/logo-small.gif")
+		.content
+			form.login-form(action="/admin" method="post")
+				h3.form-title Sign In
+				.alert.alert-danger.display-hide
+					button.close(data-close="alert")
+					span Enter any username and password
+				.form-group
+					label.control-label.visible-ie8.visible-ie9 Username
+					input.form-control.form-control-solid.placeholder-no-fix(type="text" autocomplete="off" placeholder="Username" name="username")
+				.form-group
+					label.control-label.visible-ie8.visible-ie9 Password
+					input.form-control.form-control-solid.placeholder-no-fix(type="password" autocomplete="off" placeholder="Password" name="password")
+				.form-actions
+					button.btn.btn-success.uppercase.pull-right Login
+		.copyright 2018 &copy; Copyright
+
+
+		script(type="text/javascript",src="/plugins/jquery.min.js")
+		script(type="text/javascript",src="/plugins/jquery-migrate.min.js")
+		script(type="text/javascript",src="/plugins/bootstrap/js/bootstrap.min.js")
+		script(type="text/javascript",src="/plugins/jquery.blockui.min.js")
+		script(type="text/javascript",src="/plugins/uniform/jquery.uniform.min.js")
+		script(type="text/javascript",src="/plugins/jquery.cokie.min.js")
+
+		script(type="text/javascript",src="/plugins/jquery-validation/js/jquery.validate.min.js")
+
+
+		script(type="text/javascript",src="/scripts/metronic.js")
+		script(type="text/javascript",src="/scripts/admin/layout.js")
+		script(type="text/javascript",src="/scripts/demo.js")
+		script(type="text/javascript",src="/scripts/admin/login.js")
+
+		script.
+			$(document).ready(function(){
+				Metronic.init()
+				Layout.init()
+				Login.init()
+				Demo.init()
+			})
+
